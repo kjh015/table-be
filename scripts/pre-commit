@@ -1,0 +1,17 @@
+#!/bin/sh
+
+echo "🔍 Spotless로 코드 스타일을 확인하고 교정하는 중..."
+
+# Spotless 적용 실행
+./gradlew spotlessApply
+
+# 만약 Spotless 작업 중 오류가 발생하면 커밋 중단
+if [ $? -ne 0 ]; then
+    echo "❌ Spotless 실행 중 오류가 발생했습니다. 코드를 확인해 주세요."
+    exit 1
+fi
+
+# Spotless에 의해 수정된 파일들을 다시 스테이징
+git add .
+
+echo "✅ 코드 스타일 교정 완료! 커밋을 진행합니다."
